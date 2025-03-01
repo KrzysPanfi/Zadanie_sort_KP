@@ -18,12 +18,15 @@ public class Uczestnik {
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
+            int count=0;
 
             while ((line = bufferedReader.readLine()) != null ) {
-                String[] lines= line.split("\\|");
-                Uczestnik uczestnik=new Uczestnik(lines[0],lines[1],lines[2],Integer.parseInt(lines[3]),lines[4],Integer.parseInt(lines[5]));
-                Wynik.add(uczestnik);
-
+                if(count!=0) {
+                    String[] lines = line.split("\\|");
+                    Uczestnik uczestnik = new Uczestnik(lines[0], lines[1], lines[2], Integer.parseInt(lines[3]), lines[4], Integer.parseInt(lines[5]));
+                    Wynik.add(uczestnik);
+                }
+                count++;
             }
             bufferedReader.close();
             return Wynik;
@@ -36,11 +39,11 @@ public class Uczestnik {
     }
 
     public Uczestnik(String Imie,String Nazwisko, String Szkola,int Klasa, String Poziom_trudnosci,int punkty){
-        Imie=this.imie;
-        Nazwisko=this.nazwisko;
-        Szkola=this.szkola;
-        Klasa=this.klasa;
-        Poziom_trudnosci=this.poziom_trudnosci;
+        this.imie=Imie;
+        this.nazwisko=Nazwisko;
+        this.szkola=Szkola;
+        this.klasa=Klasa;
+        this.poziom_trudnosci=Poziom_trudnosci;
         setPunkty(punkty);
         
     }

@@ -1,53 +1,20 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 public class OlimpiadaManager {
-    ArrayList<Uczestnik>uczestnicy;
 
-    public OlimpiadaManager(ArrayList<Uczestnik>uczestnicy){
-        uczestnicy=this.uczestnicy;
-    }
-
-    private <T> void bubbleSort(ArrayList<T>dane, Comparator<T>comparator){
-        int n=dane.size();
-        for(int i=0;i<n-1;i++){
-            for(int j=0;j<n-i-1;j++){
-                if(comparator.compare(dane.get(j),dane.get(j+1))>0 ){
-                    T temp=dane.get(j);
-                    dane.set(j,dane.get(j+1));
-                    dane.set(j+1,temp);
-                }
-            }
+    public void zadanie(List<Uczestnik>uczestnicy){
+        Algorytm_ukladania au=new Algorytm_ukladania(uczestnicy);
+        au.listaobecnosci();
+       HashMap<String, List<Uczestnik>> map= au.wyniki();
+ /*       for (Uczestnik u:au.getUczestnicy()){
+            System.out.println(u.toString());
         }
-
-    }
-
-    public HashMap<String,ArrayList<Uczestnik>>Sala(){
-
-        return new HashMap<>();
-    }
-    public ArrayList<Uczestnik>listaobecnosci(){
-        Comparator<Uczestnik>nazwiskocomparator=new Comparator<Uczestnik>(){
-
-            @Override
-            public int compare(Uczestnik o1, Uczestnik o2) {
-                return o1.getNazwisko().compareTo(o2.getNazwisko());
+  */
+        map.forEach(((s, uczestniks) -> {
+            for (Uczestnik u:uczestniks){
+                System.out.println(u.toString());
             }
-        };
-        bubbleSort(uczestnicy,nazwiskocomparator );
-        return uczestnicy;
-    }
-
-    public ArrayList<Uczestnik>listadyplom(){
-
-        return new ArrayList<>();
-
-
-    }
-    public HashMap<String,ArrayList<Uczestnik>>wyniki(){
-
-        return new HashMap<>();
+        }));
     }
 }
