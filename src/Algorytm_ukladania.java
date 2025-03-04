@@ -17,16 +17,30 @@ public class Algorytm_ukladania {
                         dane.set(j+1,temp);
                     }
                 }
-                if(comparator.compare(dane.get(j),dane.get(j+1))>0 ){
-                    T temp=dane.get(j);
-                    dane.set(j,dane.get(j+1));
-                    dane.set(j+1,temp);
+                else {
+                    if (comparator.compare(dane.get(j), dane.get(j + 1)) > 0) {
+                        T temp = dane.get(j);
+                        dane.set(j, dane.get(j + 1));
+                        dane.set(j + 1, temp);
+                    }
                 }
             }
         }
 
     }
 
+    public HashMap<String,Map<Integer,List<Uczestnik>>> groupbyschoolandclass() {
+        return (HashMap<String, Map<Integer, List<Uczestnik>>>)
+                uczestnicy.stream().collect(Collectors.groupingBy(Uczestnik::getSzkola, Collectors.groupingBy(Uczestnik::getKlasa)));
+    }
+    public  HashMap<String,Map<String,List<Uczestnik>>> groupbyschoolandlevel() {
+        return (HashMap<String, Map<String, List<Uczestnik>>>)
+                uczestnicy.stream().collect(Collectors.groupingBy(Uczestnik::getSzkola, Collectors.groupingBy(Uczestnik::getPoziom_trudnosci)));
+
+    }
+    public HashMap<String,List<Uczestnik>>Groupbyschool(){
+        return (HashMap<String, List<Uczestnik>>) listadyplom().stream().collect(Collectors.groupingBy(Uczestnik::getSzkola));
+    }
     public HashMap<String,List<Uczestnik>> Sala(){
        HashMap<String, List<Uczestnik>> sale= new HashMap<>();
         List<Uczestnik> uczestnicycopy=new ArrayList<>(uczestnicy);
@@ -35,6 +49,7 @@ public class Algorytm_ukladania {
         Random random =new Random();
         while(!uczestnicycopy.isEmpty()){
             List<Uczestnik> skladsali=new ArrayList<>();
+            //wybieranie pojemnosci
            int randint =random.nextInt(1,4);
            if(randint ==1){
                capacity=60;
@@ -45,24 +60,24 @@ public class Algorytm_ukladania {
            else if(randint==3){
                capacity=30;
            }
+           //pierszwy uczestnik w sali
            skladsali.add(uczestnicycopy.get(0));
            uczestnicycopy.remove(uczestnicycopy.get(0));
-           int i=1;
+           int miejscewsali=1;
            int indx=0;
-           if(uczestnicycopy.size()>1) {
-              while( skladsali.size()<capacity && !(uczestnicycopy.isEmpty()) && indx<uczestnicycopy.size()) {
+              while( skladsali.size()<capacity &&  indx<uczestnicycopy.size()) {
                    skladsali.add(uczestnicycopy.get(indx));
-                   if (!(uczestnicycopy.get(indx).getPoziom_trudnosci().equals(skladsali.get(i-1).getPoziom_trudnosci())) ||  uczestnicycopy.get(indx).getSzkola().equals(skladsali.get(i-1).getSzkola())) {
+                   if (!(uczestnicycopy.get(indx).getPoziom_trudnosci().equals(skladsali.get(miejscewsali-1).getPoziom_trudnosci())) ||  uczestnicycopy.get(indx).getSzkola().equals(skladsali.get(miejscewsali-1).getSzkola())) {
                        skladsali.remove(uczestnicycopy.get(indx));
                         indx++;
                    }
                    else{
                        uczestnicycopy.remove(uczestnicycopy.get(indx));
-                       i++;
+                       miejscewsali++;
                        indx=0;
                    }
                }
-           }
+
             sale.put(Integer.toString(countsala),skladsali);
            countsala++;
         }
