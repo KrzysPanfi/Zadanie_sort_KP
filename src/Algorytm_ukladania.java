@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Algorytm_ukladania {
@@ -28,9 +27,46 @@ public class Algorytm_ukladania {
 
     }
 
-    public HashMap<String,ArrayList<Uczestnik>> Sala(){
-
-        return new HashMap<>();
+    public HashMap<String,List<Uczestnik>> Sala(){
+       HashMap<String, List<Uczestnik>> sale= new HashMap<>();
+        List<Uczestnik> uczestnicycopy=new ArrayList<>(uczestnicy);
+        int countsala=1;
+        int capacity=0;
+        Random random =new Random();
+        while(!uczestnicycopy.isEmpty()){
+            List<Uczestnik> skladsali=new ArrayList<>();
+           int randint =random.nextInt(1,4);
+           if(randint ==1){
+               capacity=60;
+           }
+           else if(randint==2){
+               capacity=45;
+           }
+           else if(randint==3){
+               capacity=30;
+           }
+           skladsali.add(uczestnicycopy.get(0));
+           uczestnicycopy.remove(uczestnicycopy.get(0));
+           int i=1;
+           int indx=0;
+           if(uczestnicycopy.size()>1) {
+              while( skladsali.size()<capacity && !(uczestnicycopy.isEmpty()) && indx<uczestnicycopy.size()) {
+                   skladsali.add(uczestnicycopy.get(indx));
+                   if (!(uczestnicycopy.get(indx).getPoziom_trudnosci().equals(skladsali.get(i-1).getPoziom_trudnosci())) ||  uczestnicycopy.get(indx).getSzkola().equals(skladsali.get(i-1).getSzkola())) {
+                       skladsali.remove(uczestnicycopy.get(indx));
+                        indx++;
+                   }
+                   else{
+                       uczestnicycopy.remove(uczestnicycopy.get(indx));
+                       i++;
+                       indx=0;
+                   }
+               }
+           }
+            sale.put(Integer.toString(countsala),skladsali);
+           countsala++;
+        }
+        return sale;
     }
     public List<Uczestnik>listaobecnosci(){
         Comparator<Uczestnik>nazwiskocomparator= Comparator.comparing(Uczestnik::getNazwisko);
