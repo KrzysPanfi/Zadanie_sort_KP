@@ -18,10 +18,10 @@ public class Uczestnik {
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
-            int count=0;
+            int count = 0;
 
-            while ((line = bufferedReader.readLine()) != null ) {
-                if(count!=0) {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (count != 0) {
                     String[] lines = line.split("\\|");
                     Uczestnik uczestnik = new Uczestnik(lines[0], lines[1], lines[2], Integer.parseInt(lines[3]), lines[4], Integer.parseInt(lines[5]));
                     Wynik.add(uczestnik);
@@ -38,14 +38,14 @@ public class Uczestnik {
         return null;
     }
 
-    public Uczestnik(String Imie,String Nazwisko, String Szkola,int Klasa, String Poziom_trudnosci,int punkty){
-        this.imie=Imie;
-        this.nazwisko=Nazwisko;
-        this.szkola=Szkola;
-        this.klasa=Klasa;
-        this.poziom_trudnosci=Poziom_trudnosci;
+    public Uczestnik(String Imie, String Nazwisko, String Szkola, int Klasa, String Poziom_trudnosci, int punkty) {
+        this.imie = Imie;
+        this.nazwisko = Nazwisko;
+        this.szkola = Szkola;
+        this.klasa = Klasa;
+        this.poziom_trudnosci = Poziom_trudnosci;
         setPunkty(punkty);
-        
+
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Uczestnik {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Uczestnik uczestnik = (Uczestnik) o;
-        return klasa == uczestnik.klasa && punkty == uczestnik.punkty  && Objects.equals(imie, uczestnik.imie) && Objects.equals(nazwisko, uczestnik.nazwisko) && Objects.equals(szkola, uczestnik.szkola) && Objects.equals(poziom_trudnosci, uczestnik.poziom_trudnosci);
+        return klasa == uczestnik.klasa && punkty == uczestnik.punkty && Objects.equals(imie, uczestnik.imie) && Objects.equals(nazwisko, uczestnik.nazwisko) && Objects.equals(szkola, uczestnik.szkola) && Objects.equals(poziom_trudnosci, uczestnik.poziom_trudnosci);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Uczestnik {
     }
 
     public void setPunkty(int punkty) throws IllegalArgumentException {
-        if(punkty<0||punkty>100){
+        if (punkty < 0 || punkty > 100) {
             throw new IllegalArgumentException("Wynik musi być między 1 i 100");
         }
         this.punkty = punkty;
