@@ -15,6 +15,7 @@ public class OlimpiadaManager {
                 System.out.println("Szkola: " + sz + " Klasa: " + klasa1 + " Liczba: " + uczestnikList.size());
             }));
         }));
+
         HashMap<String, Map<String, List<Uczestnik>>> map2 = au.groupbyschoolandlevel();
         map2.forEach(((sz, poziom) -> {
             poziom.forEach(((poziom1, uczestnikList) -> {
@@ -27,25 +28,22 @@ public class OlimpiadaManager {
                 System.out.println("Szkola: " + sz + " Poziom: " + poziom1 + " Srednia: " + avg);
             }));
         }));
+
         HashMap<String, List<Uczestnik>> map3 = au.Groupbyschool();
         map3.forEach(((sz, uczestnikList) -> {
             System.out.println("Szkola: " + sz + " Najlepszy: " + uczestnikList.get(0).getImie() + " " + uczestnikList.get(0).getNazwisko());
         }));
- /*       for (Uczestnik u:au.getUczestnicy()){
-            System.out.println(u.toString());
-        }
-  */
 
-        System.out.println(uczestnicy.size());
-        map4.forEach(((s, uczestniks) -> {
+     /*   System.out.println(uczestnicy.size());
+        map4.forEach(((s, uczestnikList) -> {
 
             System.out.println(s);
-            System.out.println(uczestniks.size());
-            for (Uczestnik u : uczestniks) {
+            System.out.println(uczestnikList.size());
+            for (Uczestnik u : uczestnikList) {
                 System.out.println(u.toString());
             }
         }));
-
+      */
 
     }
 }
